@@ -8,4 +8,5 @@ class ProductAdmin(admin.ModelAdmin):
     list_display=('pk', 'name', 'amount', 'price')
     list_display=('pk', 'name')
     search_fields=('name',)
+
 admin.site.register(Product, ProductAdmin)
