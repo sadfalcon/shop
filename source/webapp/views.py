@@ -3,17 +3,14 @@ from django.http import HttpResponseNotAllowed
 from django.utils.timezone import make_naive
 
 from webapp.models import Product
-from webapp.forms import ProductForm, BROWSER_DATETIME_FORMAT
+from webapp.forms import ProductForm
 
 
 def index_view(request):
-    is_admin = request.GET.get('is_admin', None)
-    if is_admin:
-        data = Product.objects.all()
-    else:
-        data = Product.objects.filter(status='moderated')
+    data = Product.objects.all()
+
     return render(request, 'index.html', context={
-        'articles': data
+        'products': data
     })
 
 
@@ -59,7 +56,7 @@ def product_update_view(request, pk):
     if request.method == "GET":
         form = ProductForm(initial={
             'name': product.name,
-            'description': protexduct.description,
+            'description': product.description,
             'category': product.category,
             'amount': product.amount,
             'price': product.price
@@ -77,10 +74,10 @@ def product_update_view(request, pk):
         form = ProductForm(data=request.POST)
         if form.is_valid():
             # Article.objects.filter(pk=pk).update(**form.cleaned_data)
-            product.name = form.cleaned_data['name'],
-            product.description = form.cleaned_data['description'],
-            product.category = form.cleaned_data['category'],
-            product.amount = form.cleaned_data['amount'],
+            product.name = form.cleaned_data['name']
+            product.description = form.cleaned_data['description']
+            product.category = form.cleaned_data['category']
+            product.amount = form.cleaned_data['amount']
             product.price = form.cleaned_data['price']
             product.save()
             return redirect('product_view', pk=product.pk)

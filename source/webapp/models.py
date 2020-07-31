@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator
 
 DEFAULT_CATEGORY = 'other'
-CATEGORY_CHOICES=(
+CATEGORY_CHOICES = (
     (DEFAULT_CATEGORY, 'Разное'),
     ('food', 'Продукты питание'),
     ('household', 'Хоз.товары'),
